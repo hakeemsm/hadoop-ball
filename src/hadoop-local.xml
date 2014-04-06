@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<configuration>
+    <property>
+        <name>fs.default.name</name>
+        <value>file:///</value>
+    </property>
+    <property>
+        <name>mapreduce.framework.name</name>
+        <value>local</value>
+    </property>
+    <property>
+        <name>mapreduce.child.java.opts</name>
+        <value>-Xmx2048m</value>
+        <!-- Not marked as final so jobs can include JVM debugging options -->
+    </property>
+</configuration>
