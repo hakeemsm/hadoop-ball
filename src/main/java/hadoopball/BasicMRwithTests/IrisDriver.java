@@ -1,3 +1,4 @@
+package hadoopball.BasicMRwithTests;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
@@ -7,6 +8,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.util.Tool;
 import org.apache.hadoop.util.ToolRunner;
+
 
 /**
  * Created by hakeemsm on 4/1/14.
@@ -20,7 +22,7 @@ public class IrisDriver extends Configured implements Tool {
             return -1;
         }
         Job job = new Job(getConf(),"Iris classifier");
-        job.setJarByClass(getClass());
+        job.setJarByClass(IrisDriver.class);
 
         FileInputFormat.addInputPath(job, new Path(args[0]));
         FileOutputFormat.setOutputPath(job, new Path(args[1]));
