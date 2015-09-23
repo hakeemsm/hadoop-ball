@@ -83,7 +83,7 @@ public class TitleCount extends Configured implements Tool {
 
 
         @Override
-        public void map(Object key, Text value, Context context) throws IOException, InterruptedE   xception {
+        public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
             // TODO
             String line = value.toString();
             
