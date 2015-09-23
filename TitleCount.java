@@ -83,14 +83,14 @@ public class TitleCount extends Configured implements Tool {
 
 
         @Override
-        public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
+        public void map(Object key, Text value, Context context) throws IOException, InterruptedE   xception {
             // TODO
             String line = value.toString();
             
             StringTokenizer tokenizer = new StringTokenizer(line,this.delimiters);
             while(tokenizer.hasMoreTokens()){
-                String nextToken = tokenizer.nextToken();
-                if(!this.stopWords.contains(nextToken.trim().toLowerCase())){
+                String nextToken = tokenizer.nextToken().trim().toLowerCase();
+                if(!this.stopWords.contains(nextToken)){
                     context.write(new Text(nextToken), new IntWritable(1));
                 }
             }
