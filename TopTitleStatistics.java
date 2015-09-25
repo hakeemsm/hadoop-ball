@@ -235,7 +235,7 @@ public class TopTitleStatistics extends Configured implements Tool {
             int sqValues = 0;
             mean = sum/N;
             for (int i = 0; i <  numValues.length ; i++) {
-                sqValues += (numValues[i] - mean)^2    
+                sqValues += (numValues[i] - mean)^2;
             }
             
             var = sqValues/numValues.length;
