@@ -226,7 +226,7 @@ public class TopTitleStatistics extends Configured implements Tool {
                 if(value.get() > max){
                     max = value.get();
                 }
-                else if (min == 0) {                  
+                if (min == 0) {                  
                 
                     min = value.get();
                 }
