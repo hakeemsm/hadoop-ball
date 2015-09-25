@@ -51,7 +51,7 @@ public class OrphanPages extends Configured implements Tool {
         public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
             //TODO
             String entry = value.toString();
-            String[] pair = entry.split(":",2);
+            String[] pair = entry.split(": ",2);
             String[] srcLinks = pair[1].split(" ");
             for (String str: srcLinks) {
                 context.write(new IntWritable(Integer.parseInt(pair[0])), new IntWritable(Integer.parseInt(str)));
