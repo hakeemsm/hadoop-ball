@@ -199,7 +199,7 @@ public class TopTitleStatistics extends Configured implements Tool {
 
         @Override
         public void reduce(NullWritable key, Iterable<TextArrayWritable> values, Context context) throws IOException, InterruptedException {
-            Integer sum, mean, max, min, var;
+            Integer sum=0, mean=0, max=0, min=0, var=0;
 
             // TODO
 
