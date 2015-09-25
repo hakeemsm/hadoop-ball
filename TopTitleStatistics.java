@@ -226,7 +226,7 @@ public class TopTitleStatistics extends Configured implements Tool {
                 if(value.get() > max){
                     max = value.get();
                 }
-                if(value.get() < min){
+                if(min > value.get()){
                     min = value.get();
                 }
                 sum += value.get();
@@ -235,7 +235,7 @@ public class TopTitleStatistics extends Configured implements Tool {
             int sqValues = 0;
             mean = sum/N;
             for (int x = 0; x <  numValues.length ; x++) {
-                sqValues += (numValues[x] - mean)^2;
+                sqValues += Math.pow((numValues[x] - mean),2);
             }
             
             var = sqValues/numValues.length;
