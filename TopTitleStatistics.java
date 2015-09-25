@@ -218,11 +218,11 @@ public class TopTitleStatistics extends Configured implements Tool {
 
             Integer[] numValues = new Integer[countToWordMap.size()];
 
-            
+            int i = 0;
             for (Pair<Integer, String> item: countToWordMap) {
                 
                 IntWritable value = new IntWritable(item.first);
-                numValues[i++] = value;
+                numValues[i++] = value.get();
                 if(value.get() > max){
                     max = value.get();
                 }
@@ -234,8 +234,8 @@ public class TopTitleStatistics extends Configured implements Tool {
 
             int sqValues = 0;
             mean = sum/N;
-            for (int i = 0; i <  numValues.length ; i++) {
-                sqValues += (numValues[i] - mean)^2;
+            for (int x = 0; x <  numValues.length ; x++) {
+                sqValues += (numValues[x] - mean)^2;
             }
             
             var = sqValues/numValues.length;
