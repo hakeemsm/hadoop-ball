@@ -218,7 +218,7 @@ public class TopTitleStatistics extends Configured implements Tool {
 
             Integer[] numValues = new Integer[countToWordMap.size()];
 
-            int i = 0;
+            
             for (Pair<Integer, String> item: countToWordMap) {
                 
                 IntWritable value = new IntWritable(item.first);
