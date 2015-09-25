@@ -54,7 +54,7 @@ public class OrphanPages extends Configured implements Tool {
             String[] pair = entry.split(": ",2);
             String[] srcLinks = pair[1].split(" ");
             for (String str: srcLinks) {
-                context.write(new IntWritable(Integer.parseInt(pair[0])), new IntWritable(Integer.parseInt(str)));
+                context.write(new Text(pair[0]), new IntWritable(Integer.parseInt(str)));
             }
 
         }
