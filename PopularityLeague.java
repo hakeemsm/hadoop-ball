@@ -32,6 +32,89 @@ public class PopularityLeague extends Configured implements Tool {
     @Override
     public int run(String[] args) throws Exception {
         // TODO
+        Job job = Job.getInstance(this.getConf(), "Popularity League");
+        job.setOutputKeyClass(IntWritable.class);
+        job.setOutputValueClass(IntWritable.class);
+
+        job.setMapOutputKeyClass(IntWritable.class);
+        job.setMapOutputValueClass(IntWritable.class);
+
+        job.setMapperClass(LinkCountMap.class);
+        job.setReducerClass(LinkCountReduce.class);
+
+        FileInputFormat.setInputPaths(job,new Path(args[0]));
+        FileOutputFormat.setOutputPath(job,new Path(args[1]));
+
+        job.setJarByClass(PopularityLeague.class);
+        return job.waitForCompletion(true) ? 0 : 1;       
+    }
+
+    public static String readHDFSFile(String path, Configuration conf) throws IOException{
+        Path pt=new Path(path);
+        FileSystem fs = FileSystem.get(pt.toUri(), conf);
+        FSDataInputStream file = fs.open(pt);
+        BufferedReader buffIn=new BufferedReader(new InputStreamReader(file));
+
+        StringBuilder everything = new StringBuilder();
+        String line;
+        while( (line = buffIn.readLine()) != null) {
+            everything.append(line);
+            everything.append("\n");
+        }
+        return everything.toString();
+    }
+
+     public static class LinkCountMap extends Mapper<Object, Text, IntWritable, IntWritable> {
+        // TODO
+     	List<String> leagueLinks;
+
+     	@Override
+        protected void setup(Context context) throws IOException,InterruptedException {
+
+            Configuration conf = context.getConfiguration();
+            String leaguePath = conf.get("league");            
+
+            this.leagueLinks = Arrays.asList(readHDFSFile(leaguePath, conf).split("\n"));
+            
+        }
+
+        @Override
+        public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
+            String entry = value.toString();
+            String[] pair = entry.split(": ",2);
+            String[] srcLinks = pair[1].split(" ");
+            
+            for (String str: srcLinks) {
+                if(leagueLinks.contains(str)){
+                	context.write(new IntWritable(Integer.parseInt(str)), new IntWritable(1));
+                }
+            }
+        }
+    }
+
+    public static class LinkCountReduce extends Reducer<IntWritable, IntWritable, IntWritable, IntWritable> {
+        // TODO
+
+        TreeMap tm = new TreeMap();
+        @Override
+        public void reduce(IntWritable key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+            int sum = 0;
+            for (IntWritable value: values) {
+                sum += value.get();
+            }
+            tm.put(sum,tm.get());
+            
+        }
+
+        @Override
+        protected void cleanup(Context context) throws IOException, InterruptedException{
+        	Set set = tm.entrySet();
+        	Iterator it = set.iterator();
+        	while(it.hasNext()){
+        		Map.Entry m = (Map.Entry)it.next();
+        		context.write(new IntWritable(m.getKey()), new IntWritable(m.getValue()));
+        	}
+        }
     }
 
     // TODO
