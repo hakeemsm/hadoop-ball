@@ -115,8 +115,9 @@ public class PopularityLeague extends Configured implements Tool {
         		Map.Entry m = (Map.Entry)it.next();
         		context.write(new IntWritable(i++), new IntWritable((Integer)m.getValue()));
         	}*/
-        	int currVal = i = 0;
-        	int prevVal = tm[0].first;
+        	int currVal = 0;
+        	int i = 0;
+        	int prevVal = 0;
 
         	for (Pair<Integer,Integer> item: tm) {
         		currVal = item.first;
@@ -183,5 +184,4 @@ public class PopularityLeague extends Configured implements Tool {
     public String toString() {
         return "(" + first + ", " + second + ')';
     }
-}
 }
