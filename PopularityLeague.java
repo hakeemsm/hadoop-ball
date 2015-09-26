@@ -122,7 +122,7 @@ public class PopularityLeague extends Configured implements Tool {
         	Integer[] counts = new Integer[tm.size()];
 
         	for (Pair<Integer,Integer> item: tm) {
-        		counts[x++] = tm.first;
+        		counts[x++] = item.first;
         	}
 
         	for (Pair<Integer,Integer> item: tm) {
