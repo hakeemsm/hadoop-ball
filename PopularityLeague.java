@@ -112,7 +112,7 @@ public class PopularityLeague extends Configured implements Tool {
         	Iterator it = set.iterator();
         	while(it.hasNext()){
         		Map.Entry m = (Map.Entry)it.next();
-        		context.write(new IntWritable(m.getKey()), new IntWritable(m.getValue()));
+        		context.write(new IntWritable((Integer)m.getKey()), new IntWritable((Integer)m.getValue()));
         	}
         }
     }
