@@ -53,8 +53,9 @@ public class OrphanPages extends Configured implements Tool {
             String entry = value.toString();
             String[] pair = entry.split(": ",2);
             String[] srcLinks = pair[1].split(" ");
+            context.write(new IntWritable(Integer.parseInt(pair[0])), new IntWritable(0));
             for (String str: srcLinks) {
-                context.write(new IntWritable(Integer.parseInt(pair[0])), new IntWritable(Integer.parseInt(str)));
+                context.write(new IntWritable(new IntWritable(Integer.parseInt(str))), new IntWritable(1));
             }
 
         }
@@ -64,7 +65,13 @@ public class OrphanPages extends Configured implements Tool {
         @Override
         public void reduce(IntWritable key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
             //TODO
-            context.write(key,NullWritable.get());
+            int sum = 0;
+            for (IntWritable value: values) {
+                sum += value.get();
+            }
+            if (sum == 0) {            
+                context.write(key,NullWritable.get());
+            }
         }
     }
 }
