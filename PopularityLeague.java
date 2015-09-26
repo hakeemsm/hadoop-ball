@@ -102,7 +102,7 @@ public class PopularityLeague extends Configured implements Tool {
             for (IntWritable value: values) {
                 sum += value.get();
             }
-            tm.put(new Integer(sum), new Integer(key.get());
+            tm.put(new Integer(sum), new Integer(key.get()));
             
         }
 
