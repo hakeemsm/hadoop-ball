@@ -110,9 +110,10 @@ public class PopularityLeague extends Configured implements Tool {
         protected void cleanup(Context context) throws IOException, InterruptedException{
         	Set set = tm.entrySet();
         	Iterator it = set.iterator();
+        	int i = 0;
         	while(it.hasNext()){
         		Map.Entry m = (Map.Entry)it.next();
-        		context.write(new IntWritable((Integer)m.getKey()), new IntWritable((Integer)m.getValue()));
+        		context.write(new IntWritable(i++), new IntWritable((Integer)m.getValue()));
         	}
         }
     }
