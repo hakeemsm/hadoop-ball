@@ -131,6 +131,7 @@ public class PopularityLeague extends Configured implements Tool {
         	}
         }
     }
+}
 
     // TODO
     class Pair<A extends Comparable<? super A>,
