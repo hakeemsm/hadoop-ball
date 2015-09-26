@@ -117,17 +117,24 @@ public class PopularityLeague extends Configured implements Tool {
         	}*/
         	int currVal = 0;
         	int i = 0;
+        	int x = 0;
         	int prevVal = 0;
+        	Integer[] counts = new Integer[tm.size()];
+
+        	for (Pair<Integer,Integer> item: tm) {
+        		counts[x++] = tm.first;
+        	}
 
         	for (Pair<Integer,Integer> item: tm) {
         		currVal = item.first;
-        		if (currVal == prevVal) {
-        			context.write(new IntWritable(i), new IntWritable(item.second));	
+        		if (i == 0 || (i > 0 && currVal != counts[i-1]) {
+        			context.write(new IntWritable(item.second), new IntWritable(i++));	
         		}
         		else{
-        			context.write(new IntWritable(i++), new IntWritable(item.second));	
+        			context.write(new IntWritable(item.second),new IntWritable(i));
+        			i++;	
         		}
-        		prevVal = currVal;
+        		
         	}
         }
     }
