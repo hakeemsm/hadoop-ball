@@ -127,7 +127,7 @@ public class PopularityLeague extends Configured implements Tool {
 
         	for (Pair<Integer,Integer> item: tm) {
         		currVal = item.first;
-        		if (i == 0 || (i > 0 && currVal != counts[i-1]) {
+        		if (i == 0 || (i > 0 && currVal != counts[i-1])) {
         			context.write(new IntWritable(item.second), new IntWritable(i++));	
         		}
         		else{
