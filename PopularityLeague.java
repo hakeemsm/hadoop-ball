@@ -95,14 +95,14 @@ public class PopularityLeague extends Configured implements Tool {
     public static class LinkCountReduce extends Reducer<IntWritable, IntWritable, IntWritable, IntWritable> {
         // TODO
 
-        TreeMap tm = new TreeMap();
+        TreeMap<Integer,Integer> tm = new TreeMap<Integer,Integer>();
         @Override
         public void reduce(IntWritable key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
             int sum = 0;
             for (IntWritable value: values) {
                 sum += value.get();
             }
-            tm.put(sum,tm.get());
+            tm.put(new Integer(sum), new Integer(key.get());
             
         }
 
